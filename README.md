@@ -11,31 +11,44 @@ git clone <repository-url>
 cd <project-directory>
 source venv/bin/activate
 pip install -r requirements.txt
+```
+
+Teardown:
+```bash
+deactivate
+```
+
+2. create a new .env file for secrets, you can get this information from [supabase](https://supabase.com/dashboard/project/fvvmbtjoztejtalynctc/settings/api)
+your .env file should look like this:
+```
+SUPABASE_URL=your_supabase_url
+SUPABASE_API_KEY=your_supabase_api_key
+```
+
+
+3. Run the app
+```bash
 uvicorn main:app --reload
 ```
 
 Now, the server should be up and running at http://localhost:8000. You can view the interactive API documentation at http://localhost:8000/docs.
 
-To get out of the virtual env run
-```
-deactivate
-```
-
 To test your server, you can run the following CURL command:
-```
+```bash
 curl http://localhost:8000/test
 ```
 
 To make a proper request to generate a response, and record the input and output in supabase, run the following CURL
-```
+```bash
 curl -X POST -H "Content-Type: application/json" -d '{"url": "yourgitrepo.url", "prompt": "your prompt"}' http://127.0.0.1:8000/generate
 ```
 
-## Supabase Config
-Create a `config.py` file which looks like the following:
-```
-url="https://abc.supabase.co"
-api="dummy-api"
-```
 
-Get this information from [supabase](https://supabase.com/dashboard/project/fvvmbtjoztejtalynctc/settings/api), and see [this tutorial](https://blog.theinfosecguy.xyz/building-a-crud-api-with-fastapi-and-supabase-a-step-by-step-guide) for more info
+## Deploy changes to prod
+Use Heroku for production:
+```bash
+heroku login
+git push heroku main
+heroku open
+heroku logs --tail
+```

@@ -1,5 +1,5 @@
 # Config secrets
-config.py
+.env
 
 # Python cache files
 __pycache__/

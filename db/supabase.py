@@ -1,8 +1,8 @@
 from supabase import Client, create_client
-from config import api, url
+from config import supabase_url, supabase_api_key
 
-api_url: str = url
-key: str = api
+url: str = supabase_url
+key: str = supabase_api_key
 
 def create_supabase_client():
     supabase: Client = create_client(url, key)
