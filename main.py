@@ -2,8 +2,8 @@ import bcrypt
 from fastapi import FastAPI
 from app.models import RequestRecord
 from db.supabase import create_supabase_client
-from langchain.openai import create_openai_llm
-from integtations.github.github import get_github_files_and_contents
+from langchains.openai import create_openai_llm
+from integrations.github import get_github_files_and_contents
 
 app = FastAPI()
 
