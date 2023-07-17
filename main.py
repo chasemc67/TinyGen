@@ -7,7 +7,6 @@ from integrations.github import get_github_files_and_contents
 
 app = FastAPI()
 
-# init supabase client
 llm = create_openai_llm()
 
 @app.get("/test")
