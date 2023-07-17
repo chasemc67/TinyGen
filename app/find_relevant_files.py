@@ -1,7 +1,7 @@
 from typing import List
 import asyncio
 from dataclasses import dataclass
-from langchains.openai import run_llm_chain_for_input
+from langchains.openai import run_llm_chain_find_relevant_files
 from integrations.github import GithubFile, get_github_files_and_contents
 import re
 
@@ -20,7 +20,7 @@ async def process_item(item: GithubFile, userPrompt: str) -> ProcessedGithubFile
     # return ProcessedGithubFile(item, f"Processed {item.filename} with code {item.content}")
     #return f"Processed {item.filename} with code {item.content}"
 
-    result = run_llm_chain_for_input(userPrompt, item.content)
+    result = run_llm_chain_find_relevant_files(userPrompt, item.content)
     int_result =  parse_number_from_answer(result) or 0
     return ProcessedGithubFile(item, int_result)
 
