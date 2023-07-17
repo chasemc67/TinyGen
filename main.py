@@ -1,4 +1,3 @@
-import bcrypt
 from fastapi import FastAPI
 from app.models import RequestRecord
 from db.supabase import supabase_record_request
