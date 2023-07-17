@@ -1,6 +1,6 @@
 import bcrypt
 from fastapi import FastAPI
-from app.models import User, Item
+from app.models import User, Item, RequestRecord
 from db.supabase import create_supabase_client
 
 app = FastAPI()
@@ -19,7 +19,7 @@ def create_user(user: User):
         # Convert the email to lowercase
         user_email = user.email.lower()
         # hash password 
-        hashed_password = bcrypt.hashpw(user.password, bcrypt.gensalt())
+        hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), bcrypt.gensalt()).decode('utf-8')
 
         # check if user already exists
         if user_exists(value=user_email):
@@ -37,6 +37,23 @@ def create_user(user: User):
     except Exception as e:
         print("Error: ", e)
         return {"message": "User creation failed"}
+
+# Append to the history table log
+@app.post("/generate")
+def record_request(request: RequestRecord):
+    try:
+        # Add request into history table
+        request = supabase.from_("request_history")\
+            .insert({"url": request.url, "prompt": request.prompt, "response": ""})\
+            .execute()
+
+        if request:
+            return {"message": "Request recorded successfully"}
+        else: 
+            return {"message": "Request recording failed"}
+    except Exception as e:
+        print("Error: ", e)
+        return {"message": "Request recording failed"}
 
 @app.post("/concatenate/")
 async def concatenate_strings(item: Item):
