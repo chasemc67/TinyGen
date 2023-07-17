@@ -44,5 +44,5 @@ def run_llm_chain_for_input(userPrompt: str, content: str) -> str:
     llmchain = LLMChain(llm=llm, prompt=prompt)
     return llmchain.run({
         'userPrompt': userPrompt,
-        'content': content
+        'content': content[:5000]
     })
