@@ -1,8 +1,6 @@
 from fastapi import FastAPI
 from app.models import RequestRecord
 from db.supabase import supabase_record_request
-from langchains.openai import create_openai_llm
-from integrations.github import get_github_files_and_contents
 from app.generate_diff import get_suggested_diffs_for_prompt_and_repo
 
 app = FastAPI()
@@ -26,5 +24,5 @@ async def generate(request: RequestRecord):
     #TODO update the request record with the response
 
 
-    formatted_results = [{"filename": result.originalFile.filename, "diff": result.diff} for result in results]
+    formatted_results = [{"filename": result.processedFile.originalFile.filename, "diff": result.diff} for result in results]
     return {"results": formatted_results}
