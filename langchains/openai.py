@@ -9,6 +9,10 @@ from config import openai_api_key
 
 key: str = openai_api_key
 
+# TODO this prompt should probably be either generated or modified by some chain-of-thought reasoning
+# specifically if the agent was give a task of "adding a route", I'd expect it to be able to come up with
+# the step "i need to find where the routes are defined" as part of its reasoning process
+# and that could inform this prompt. 
 prompt = PromptTemplate(
     input_variables=["userPrompt", "content"],
     template="""
