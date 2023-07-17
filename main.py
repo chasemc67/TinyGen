@@ -23,12 +23,12 @@ def test_github():
 
 # Append to the history table log
 @app.post("/generate")
-def generate(request: RequestRecord):
+async def generate(request: RequestRecord):
     try:
         # Add request into history table
-        request = supabase_record_request(request)
+        supabase_request = supabase_record_request(request)
 
-        if request:
+        if supabase_request:
             print("Request recorded successfully")
         else: 
             return {"message": "Request recording failed"}
@@ -36,12 +36,9 @@ def generate(request: RequestRecord):
         print("Error: ", e)
         return {"message": "Request recording failed"}
 
-    # TODO get files from github to pass to LLM (or invoke LLM now with custom github tool)
+    result = await get_suggested_diffs_for_prompt_and_repo(request.prompt, request.url)
 
-    return {"message": "Request recording succeeded"}
+    #TODO update the request record with the response
 
-
-@app.get("/testendtoend")
-async def testEndToEnd():
-    result = await get_suggested_diffs_for_prompt_and_repo("Add a new app.get route called CoolDogs which returns the string \"Finley\"", "https://github.com/chasemc67/TinyGen")
+    #TODO format the message better
     return {"message": result[0].diff}
