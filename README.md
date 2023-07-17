@@ -52,3 +52,11 @@ git push heroku main
 heroku open
 heroku logs --tail
 ```
+
+
+### Python things:
+```bash
+source venv/bin/activate # activate virtual env
+deactive # deactivate virtual env
+pip freeze > requirements.txt # update deps
+```
