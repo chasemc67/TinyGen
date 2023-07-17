@@ -28,12 +28,10 @@ def test_github():
 def record_request(request: RequestRecord):
     try:
         # Add request into history table
-        request = supabase.from_("request_history")\
-            .insert({"url": request.url, "prompt": request.prompt, "response": ""})\
-            .execute()
+        request = record_request(request, supabase)
 
         if request:
-            return {"message": "Request recorded successfully"}
+            print("Request recorded successfully")
         else: 
             return {"message": "Request recording failed"}
     except Exception as e:
