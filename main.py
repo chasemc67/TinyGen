@@ -8,6 +8,11 @@ app = FastAPI()
 # init supabase client
 supabase = create_supabase_client()
 
+@app.get("/test")
+def read_test():
+    return {"message": "hello"}
+
+
 # Append to the history table log
 @app.post("/generate")
 def record_request(request: RequestRecord):
@@ -24,3 +29,4 @@ def record_request(request: RequestRecord):
     except Exception as e:
         print("Error: ", e)
         return {"message": "Request recording failed"}
+

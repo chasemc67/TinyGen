@@ -23,9 +23,13 @@ deactivate
 
 To test your server, you can run the following CURL command:
 ```
-curl -X POST "http://localhost:8000/concatenate/" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"string1\":\"Hello\",\"string2\":\"World\"}"
+curl http://localhost:8000/test
 ```
 
+To make a proper request to generate a response, and record the input and output in supabase, run the following CURL
+```
+curl -X POST -H "Content-Type: application/json" -d '{"url": "yourgitrepo.url", "prompt": "your prompt"}' http://127.0.0.1:8000/generate
+```
 
 ## Supabase Config
 Create a `config.py` file which looks like the following:
