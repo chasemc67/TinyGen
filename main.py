@@ -1,14 +1,13 @@
 import bcrypt
 from fastapi import FastAPI
 from app.models import RequestRecord
-from db.supabase import create_supabase_client
+from db.supabase import supabase_record_request
 from langchains.openai import create_openai_llm
 from integrations.github import get_github_files_and_contents
 
 app = FastAPI()
 
 # init supabase client
-supabase = create_supabase_client()
 llm = create_openai_llm()
 
 @app.get("/test")
@@ -25,10 +24,10 @@ def test_github():
 
 # Append to the history table log
 @app.post("/generate")
-def record_request(request: RequestRecord):
+def generate(request: RequestRecord):
     try:
         # Add request into history table
-        request = record_request(request, supabase)
+        request = supabase_record_request(request)
 
         if request:
             print("Request recorded successfully")
@@ -38,3 +37,6 @@ def record_request(request: RequestRecord):
         print("Error: ", e)
         return {"message": "Request recording failed"}
 
+    # TODO get files from github to pass to LLM (or invoke LLM now with custom github tool)
+
+    return {"message": "Request recording succeeded"}
