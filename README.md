@@ -25,3 +25,13 @@ To test your server, you can run the following CURL command:
 ```
 curl -X POST "http://localhost:8000/concatenate/" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"string1\":\"Hello\",\"string2\":\"World\"}"
 ```
+
+
+## Supabase Config
+Create a `config.py` file which looks like the following:
+```
+url="https://abc.supabase.co"
+api="dummy-api"
+```
+
+Get this information from [supabase](https://supabase.com/dashboard/project/fvvmbtjoztejtalynctc/settings/api), and see [this tutorial](https://blog.theinfosecguy.xyz/building-a-crud-api-with-fastapi-and-supabase-a-step-by-step-guide) for more info
