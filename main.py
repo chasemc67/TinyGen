@@ -15,11 +15,11 @@ llm = create_openai_llm()
 def read_test():
     return {"message": "hello"}
 
-@app.get("test-llm")
+@app.get("/testllm")
 def test_llm():
     return llm.predict("What is a cool name for a dog?")
 
-@app.get("test-github")
+@app.get("/testgithub")
 def test_github():
     return get_github_files_and_contents('https://github.com/chasemc67/TinyGen')
 
