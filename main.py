@@ -7,21 +7,6 @@ from app.generate_diff import get_suggested_diffs_for_prompt_and_repo
 
 app = FastAPI()
 
-llm = create_openai_llm()
-
-@app.get("/test")
-def read_test():
-    return {"message": "hello"}
-
-@app.get("/testllm")
-def test_llm():
-    return llm.predict("What is a cool name for a dog?")
-
-@app.get("/testgithub")
-def test_github():
-    return get_github_files_and_contents('https://github.com/chasemc67/TinyGen')
-
-# Append to the history table log
 @app.post("/generate")
 async def generate(request: RequestRecord):
     try:
@@ -36,9 +21,10 @@ async def generate(request: RequestRecord):
         print("Error: ", e)
         return {"message": "Request recording failed"}
 
-    result = await get_suggested_diffs_for_prompt_and_repo(request.prompt, request.url)
+    results = await get_suggested_diffs_for_prompt_and_repo(request.prompt, request.url)
 
     #TODO update the request record with the response
 
-    #TODO format the message better
-    return {"message": result[0].diff}
+
+    formatted_results = [{"filename": result.originalFile.filename, "diff": result.diff} for result in results]
+    return {"results": formatted_results}
