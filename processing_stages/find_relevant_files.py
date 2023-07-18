@@ -42,6 +42,7 @@ async def find_relevant_files_for_prompt_and_repo(prompt: str, repo: str) -> Lis
 
 
 async def get_top_n_relevent_files_for_prompt_and_repo(prompt: str, repo: str, n: int) -> List[ProcessedGithubFile]:
+    print("Finding Relelvant files...")
     processedGithubFiles = await find_relevant_files_for_prompt_and_repo(prompt, repo)
     return get_top_n_hits_from_processed_files(processedGithubFiles, n)
     

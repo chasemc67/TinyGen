@@ -87,3 +87,32 @@ def run_llm_chain_potential_diff_for_file(userPrompt: str, fileName: str, conten
         'fileName': fileName,
         'fileContent': content[:5000]
     })
+
+
+reflection_prompt = PromptTemplate(
+    input_variables=["userPrompt", "content"],
+    template="""
+    Role: Software Engineering Expert. Reflects on a code change.
+
+    We are trying to solve the following problem:
+    ```
+    {userPrompt}
+    ```
+
+    We have the following collection of diffs:
+    ```
+    {content}
+    ```
+
+    Do you feel like this is a reasonable solution? 
+    Respond with either "yes" or "no".
+    """
+)
+
+def run_llm_chain_reflection(userPrompt: str, content: str) -> str:
+    llm = create_openai_llm()
+    llmchain = LLMChain(llm=llm, prompt=reflection_prompt)
+    return llmchain.run({
+        'userPrompt': userPrompt,
+        'content': content[:5000]
+    })

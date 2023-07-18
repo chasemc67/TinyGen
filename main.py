@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi import HTTPException
 from app.models import RequestRecord
 from db.supabase import supabase_record_request
-from processing_stages.generate_diff import get_suggested_diffs_for_prompt_and_repo
+from processing_stages.reflection import get_suggested_diffs_for_prompt_and_repo_with_reflection
 from integrations.github import validate_url
 
 app = FastAPI()
@@ -27,7 +27,7 @@ async def generate(request: RequestRecord):
         print("Error: ", e)
         raise HTTPException(status_code=500, detail="Request recording failed")
 
-    results = await get_suggested_diffs_for_prompt_and_repo(request.prompt, request.url)
+    results = await get_suggested_diffs_for_prompt_and_repo_with_reflection(request.prompt, request.url, 3)
 
     formatted_results = [{"filename": result.processedFile.originalFile.filename, "diff": result.diff} for result in results]
     #TODO update the request record in supabase with the response

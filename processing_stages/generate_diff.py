@@ -12,6 +12,7 @@ class SuggestedDiff:
 # TODO parallelize this like in find_relevant_files.py
 async def get_suggested_diffs_for_prompt_and_repo(prompt: str, repo: str) -> List[SuggestedDiff]:
     processedGithubFiles = await get_top_n_relevent_files_for_prompt_and_repo(prompt, repo, 3)
+    print("Getting suggested diffs for chosen files...")
     suggestedDiffs = []
     for processedFile in processedGithubFiles:
         if processedFile.llmResponse > 20:
