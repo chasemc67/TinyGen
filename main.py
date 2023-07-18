@@ -12,6 +12,8 @@ async def generate(request: RequestRecord):
 
     if not validate_url(request.url):
         raise HTTPException(status_code=400, detail="Invalid Github URL, use a pattern like https://github.com/chasemc67/TinyGen")
+    if len(request.prompt) > 10000:
+        raise HTTPException(status_code=400, detail="Prompt too large")
 
     try:
         # Add request into history table
@@ -27,7 +29,7 @@ async def generate(request: RequestRecord):
 
     results = await get_suggested_diffs_for_prompt_and_repo(request.prompt, request.url)
 
-    #TODO update the request record with the response
-
     formatted_results = [{"filename": result.processedFile.originalFile.filename, "diff": result.diff} for result in results]
+    #TODO update the request record in supabase with the response
+
     return {"results": formatted_results}
