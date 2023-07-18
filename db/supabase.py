@@ -1,4 +1,4 @@
-from supabase import Client, create_client
+from supabase import create_client
 from config import supabase_url, supabase_api_key
 from app.models import RequestRecord
 

@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from typing import List
 import re
 import pickle
+from fastapi import HTTPException
 
 @dataclass
 class GithubFile:
@@ -25,18 +26,17 @@ def get_github_files_and_contents(github_url: str) -> List[GithubFile]:
     api_url = github_url.replace('github.com', 'api.github.com/repos', 1) + '/contents/'
     headers = {'Accept': 'application/vnd.github.v3.raw'}
 
-    # Create a list to hold the GithubFile objects
     files = []
 
     try:
         response = requests.get(api_url, headers=headers)
         response.raise_for_status()  # Raise an exception if the response was not 200 OK
     except requests.exceptions.HTTPError as err:
-        print(f'HTTP error occurred: {err}')  # Print the HTTP error if one occurred
+        raise HTTPException(status_code=500, detail=f'HTTP error occurred: {err}')
     except requests.exceptions.RequestException as err:
-        print(f'Request error occurred: {err}')  # Print the request error if one occurred
+        raise HTTPException(status_code=500, detail=f'Request error occurred: {err}')
     else:
-        file_data = response.json()  # If the request was successful, parse the response as JSON
+        file_data = response.json()
         for file in file_data:
             if file['type'] == 'file':
                 content = requests.get(file['download_url'], headers=headers).content.decode('utf-8')

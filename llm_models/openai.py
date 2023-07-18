@@ -1,14 +1,11 @@
 from langchain.llms import OpenAI
-from langchain.agents import load_tools
-from langchain.agents import initialize_agent
-from langchain.agents import AgentType
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
-
 from config import openai_api_key
 
 key: str = openai_api_key
 
+# TODO create singleton class here like with the DB client?
 def create_openai_llm():
     return OpenAI(openai_api_key=key, temperature=0)
 
