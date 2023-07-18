@@ -23,6 +23,7 @@ your .env file should look like this:
 ```
 SUPABASE_URL=your_supabase_url
 SUPABASE_API_KEY=your_supabase_api_key
+OPENAI_API_KEY=your_openapi_key
 ```
 
 
