@@ -38,7 +38,6 @@ async def process_all_items(items: List[GithubFile], userPrompt: str) -> List[Pr
 async def find_relevant_files_for_prompt_and_repo(prompt: str, repo: str) -> List[ProcessedGithubFile]:
     githubFiles = get_github_files_and_contents(repo)
     processedGithubFiles = await process_all_items(githubFiles, prompt)
-    print(processedGithubFiles)
     return processedGithubFiles
 
 
