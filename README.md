@@ -2,6 +2,7 @@
 
 A simple API to generate code diffs using ChatGPT
 
+
 ## Running the Application Locally
 
 1. First, clone the repository to your local machine and navigate to the project directory:
