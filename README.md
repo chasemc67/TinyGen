@@ -24,6 +24,7 @@ your .env file should look like this:
 ```
 SUPABASE_URL=your_supabase_url
 SUPABASE_API_KEY=your_supabase_api_key
+OPENAI_API_KEY=your_openapi_key
 ```
 
 
@@ -34,16 +35,10 @@ uvicorn main:app --reload
 
 Now, the server should be up and running at http://localhost:8000. You can view the interactive API documentation at http://localhost:8000/docs.
 
-To test your server, you can run the following CURL command:
-```bash
-curl http://localhost:8000/test
+To test the server and run sample requests, open the openAPI page at 
 ```
-
-To make a proper request to generate a response, and record the input and output in supabase, run the following CURL
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"url": "yourgitrepo.url", "prompt": "your prompt"}' http://127.0.0.1:8000/generate
+http://localhost:8000/docs
 ```
-
 
 ## Deploy changes to prod
 Use Heroku for production:
