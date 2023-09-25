@@ -1,3 +1,4 @@
+![Dog Image](https://www.publicdomainpictures.net/pictures/310000/nahled/golden-retriever-dog.jpg)
 # TinyGen
 
 A simple API to generate code diffs using ChatGPT
