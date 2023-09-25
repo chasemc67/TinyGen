@@ -1,3 +1,4 @@
+🐖
 # TinyGen
 
 A simple API to generate code diffs using ChatGPT
