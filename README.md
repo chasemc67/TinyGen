@@ -7,6 +7,7 @@ A simple API to generate code diffs using ChatGPT
 
 1. First, clone the repository to your local machine and navigate to the project directory:
 
+
 ```bash
 git clone <repository-url>
 cd <project-directory>
