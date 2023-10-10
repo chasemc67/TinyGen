@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SUPABASE_URL: default_supabase_url
+      SUPABASE_API_KEY: default_supabase_api_key
+      OPENAI_API_KEY: default_openai_key
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/usr/src/app

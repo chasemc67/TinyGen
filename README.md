@@ -59,6 +59,11 @@ docker build -t tinygen .
 docker run tinygen pytest tests/test_github.py
 ```
 
+## Run tests with docker-compose:
+```bash
+docker-compose run app pytest tests/test_github.py
+```
+
 
 ### Python things:
 ```bash
