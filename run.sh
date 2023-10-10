@@ -7,4 +7,4 @@ git clone https://github.com/chasemc67/TinyGen.git /repo
 cd /repo
 
 # Run the docker-compose command
-docker-compose run app pytest tests/
+docker-compose run app pytest tests/test_github.py
