@@ -1,5 +1,8 @@
-# Use a base image that already has some essential tools
-FROM debian:bullseye-slim
+# Use Ubuntu as base image
+FROM ubuntu:20.04
+
+# Prevents prompts from apt-get
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install necessary packages
 RUN apt-get update && \
@@ -13,9 +16,9 @@ RUN apt-get update && \
     lsb-release \
     software-properties-common && \
     # Add Docker’s official GPG key
-    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
     # Set up the stable repository for Docker
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list && \
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list && \
     apt-get update && \
     # Install Docker CLI
     apt-get install -y docker-ce-cli && \
@@ -23,7 +26,6 @@ RUN apt-get update && \
     curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
     chmod +x /usr/local/bin/docker-compose && \
     # Add deadsnakes PPA and install Python 3.10
-    apt-get install -y software-properties-common && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     apt-get install -y python3.10
