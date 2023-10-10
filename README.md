@@ -50,6 +50,15 @@ heroku open
 heroku logs --tail
 ```
 
+## Run tests:
+`pytest tests/test_github.py`
+
+## Run tests through docker:
+```bash
+docker build -t tinygen .
+docker run tinygen pytest tests/test_github.py
+```
+
 
 ### Python things:
 ```bash
