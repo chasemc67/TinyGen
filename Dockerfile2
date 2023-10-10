@@ -1,0 +1,4 @@
+# Step 1: Use Debian as the base image
+FROM python:3.9-slim
+
+# Step 2: Specify the command to run when the container starts
