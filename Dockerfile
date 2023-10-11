@@ -1,5 +1,6 @@
 # Use an official Python runtime as the base image
-FROM python:3.9-slim
+# break dockerfile for test
+FROM 219620959316.dkr.ecr.us-east-1.amazonaws.com/ramp-base-images/python-3.10-slim-bullseye:2023-09-26.0
 
 # Set the working directory in the container
 WORKDIR /usr/src/app
